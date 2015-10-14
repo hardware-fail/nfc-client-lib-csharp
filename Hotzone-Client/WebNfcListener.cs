@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using fail.hardware.Hotzone.Client;
 using Quobject.SocketIoClientDotNet.Client;
 
 namespace fail.hardware.NfcClient
@@ -13,6 +14,8 @@ namespace fail.hardware.NfcClient
         private string _endpoint;
         private readonly string _address;
 
+        public event Action OnConnected;
+        public event Action OnError;
         public event Action<NfcScanner> OnRegistered;
         public event Action<NfcScan> OnScan;
 
@@ -30,7 +33,7 @@ namespace fail.hardware.NfcClient
 
             _ioHandler.On(Socket.EVENT_CONNECT, (obj) =>
             {
-                
+                OnConnected?.Invoke();
             });
 
             _ioHandler.On("scanner.registered", (obj) =>
