@@ -1,6 +1,5 @@
 ﻿{
   "dependencies": {
-    "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
     "SocketIoClientDotNet": "0.9.12"
   },
   "frameworks": {
