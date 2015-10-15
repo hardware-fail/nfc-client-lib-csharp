@@ -6,19 +6,22 @@ namespace fail.hardware.Hotzone.Client
 { 
     public class NfcScanner
     {
-        static readonly JsonSerializerSettings SerializerSettings = new JsonSerializerSettings
-        {
-            ContractResolver = new CamelCasePropertyNamesContractResolver()
-        };
 
         public string DeviceId { get; set; }
         public string DeviceName { get; set; }
         public string Endpoint { get; set; }
 
 
-        public static NfcScanner FromJson(string json)
+        public static NfcScanner FromObject(object json)
         {
-            return JsonConvert.DeserializeObject<NfcScanner>(json, SerializerSettings);
+            dynamic obj = json;
+            var o = new NfcScanner
+            {
+                DeviceId = obj.device_id,
+                DeviceName = obj.device_name,
+                Endpoint = obj.endpoint
+            };
+            return o;
         }
 
         public override string ToString()
